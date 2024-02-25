@@ -24,19 +24,17 @@ pip install -r requirements.txt
 Remember to move scripts `train.py`, `val.py`, and `predict.py` under the `./PaddleSeg` directory.
 ```shell
 cd PaddleSeg
-python ./train.py --config ../psp2.yaml --use_vdl 
+python ./train.py --config ../psp2.yml --use_vdl 
 ```
-
+Then, check the loss curve by using
+```shell
+visualdl --logdir output/
+```
 ## Model Evaluation
 如果output里面有best model，选择best下面的相应模型
 ```shell
 cd PaddleSeg
 python ./val.py --config ../psp2.yaml --model_path ./output/iter_10000/model.pdparams
-```
-Then, check the loss curve by using
-```shell
-cd PaddleSeg
-visualdl --logdir output/
 ```
 
 ## Prediction
