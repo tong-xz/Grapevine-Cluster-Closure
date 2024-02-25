@@ -7,6 +7,7 @@
 
 [PaddleSeg](https://github.com/PaddlePaddle/PaddleSeg) is an open-source image segmentation framework based on PaddlePaddle. To install PaddleSeg, you can follow the instructions provided in the PaddleSeg documentation. Here's how you can install it using pip:
 
+Q&A: https://aistudio.baidu.com/projectdetail/1924008
 
 ```shell
 git clone https://github.com/PaddlePaddle/PaddleSeg.git
@@ -22,7 +23,7 @@ pip install -r requirements.txt
 ## Model Training
 ```shell
 cd PaddleSeg
-python ./train.py --config ../psp2.yaml
+python ./train.py --config ../psp2.yaml --use_vdl 
 ```
 
 ## Model Evaluation
@@ -30,6 +31,11 @@ python ./train.py --config ../psp2.yaml
 ```shell
 cd PaddleSeg
 python ./val.py --config ../psp2.yaml --model_path ./output/iter_10000/model.pdparams
+```
+Then, check the loss curve by using
+```shell
+cd PaddleSeg
+visualdl --logdir output/
 ```
 
 ## Prediction
