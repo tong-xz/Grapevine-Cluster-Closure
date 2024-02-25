@@ -21,6 +21,7 @@ pip install -r requirements.txt
 ```
 
 ## Model Training
+Remember to move scripts `train.py`, `val.py`, and `predict.py` under the `./PaddleSeg` directory.
 ```shell
 cd PaddleSeg
 python ./train.py --config ../psp2.yaml --use_vdl 
