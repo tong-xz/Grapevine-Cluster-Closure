@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from matplotlib.backends.backend_pdf import PdfPages
+from  pathlib import Path
 
 def find_png_files(root_dir):
     png_files = []
@@ -14,8 +15,7 @@ def find_png_files(root_dir):
     return png_files
 
 def process_images(png_files, output_path):
-    results = {}
-    df = pd.DataFrame(columns=['File Name', 'CC Value'])
+    df = pd.DataFrame(columns=['Date','Treatment', 'Rep', 'CC Value'])
     with PdfPages(os.path.join(output_path, 'count.pdf')) as pdf_pages:
         for file_path in png_files:
             img = cv2.imread(file_path)
@@ -34,20 +34,26 @@ def process_images(png_files, output_path):
 
             # 更新DataFrame
             print(file_path)
-            df = df._append({'File Name':file_path, 'CC Value': CC_value}, ignore_index=True)
+            date_parts = file_path.split('\\')[2].split('-')
+            date = '-'.join(part for part in date_parts if part.isdigit())
+            treatment = file_path.split('\\')[3][:2]
+            rep = file_path.split('\\')[3][-1]
+            df = df._append({'Date': date,  'Treatment':treatment, 'Rep': rep,'CC Value': CC_value}, ignore_index=True)
                 
             fig, axs = plt.subplots(1, 2, figsize=(10, 5))
             axs[0].imshow(img_gray * mask_38, cmap='gray')
             axs[1].imshow(img_gray * mask_75, cmap='gray')
-            fig.suptitle(f'File: {os.path.basename(file_path)} - CC Value: {CC_value:.2f}%')
+            fig.suptitle(f' Date: {date} - Treatment:{treatment} - Rep: {rep} - CC Value: {CC_value:.2f}% - File: {os.path.basename(file_path)}')
             pdf_pages.savefig(fig)
             plt.close(fig)
 
+
     # 保存DataFrame到CSV文件
     df.to_csv(os.path.join(output_path, 'result.csv'), index=False)
+    print("ALL DONE!!!")
 
 # 设置你的根目录和输出路径
-root_dir = "./vignoles_output"
-output_path = "./"
+root_dir = ".\\vignoles_output"
+output_path = ".\\"
 png_files = find_png_files(root_dir)
 process_images(png_files, output_path)
