@@ -15,9 +15,10 @@ git clone https://github.com/PaddlePaddle/PaddleSeg.git
 
 ### 2. Dev Environment 
 `requirements.txt` file clearly list all the packages needed. If you want to use GPU to train the model, remember to use
-`paddleseg-gpu` version.
+`paddlepaddle-gpu` version.
 ```shell
 pip install -r requirements.txt
+pip install paddlepaddle-gpu
 ```
 
 ## Model Training
@@ -34,13 +35,13 @@ visualdl --logdir output/
 如果output里面有best model，选择best下面的相应模型
 ```shell
 cd PaddleSeg
-python ./val.py --config ../psp2.yaml --model_path ./output/iter_10000/model.pdparams
+python ./val.py --config ../psp2.yml --model_path ./output/iter_10000/model.pdparams
 ```
 
 ## Prediction
 
 ```shell
 cd PaddleSeg
-python ./predict.py --config ../psp2.yaml --model_path <model_path> --image_path ../cab-franc --save_dir ../results
+python ./predict.py --config ../psp2.yml --model_path <model_path> --image_path ../cab-franc --save_dir ../results
 ```
 
